@@ -1,21 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import Navigatior from './component/navigation/Navigator';
+import AppLoading from 'expo-app-loading';
+import * as Font from 'expo-font';
+
+let customFonts = {
+  'Verdana-Bold': require('./assets/fonts/verdanab.ttf'),
+  'Special-Elite-Regular': require('./assets/fonts/SpecialElite-Regular.ttf')
+};
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [fontsLoaded, setfontsLoaded] = useState(false);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  useEffect(() => {
+      loadFontsAsync();
+    }, []);
+
+  const loadFontsAsync = async () => {
+    await Font.loadAsync(customFonts);
+    setfontsLoaded(true);
+  };
+
+  if (fontsLoaded)
+  {
+    return <Navigatior></Navigatior>;
+  }
+  else {
+    return <AppLoading />;
+  }
+}
