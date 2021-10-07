@@ -5,24 +5,27 @@ import styles from './TextInputWithImage.styles'
 
 interface TextInputProp {
     placeholder: string;
-    iconName: any;
+    iconName?: keyof typeof Ionicons.glyphMap;
     iconColor: string;
     secureText: boolean;
     style?: StyleProp<TextStyle>;
-    onChange: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+    onChange?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+    onChangeText?: (text: string) => void;
 }
 
-export default function TextInputWithImage(prop: TextInputProp) {   
+export default function TextInputWithImage({placeholder, iconName, iconColor, secureText, 
+    style, onChange, onChangeText}: TextInputProp) {   
     return (
         <View style={styles.container}>
-            <Ionicons style={styles.icon} name={prop.iconName} size={24} color={prop.iconColor} />
-            <TextInput style={[styles.input, prop.style]}
-                    placeholder={prop.placeholder}
+            <Ionicons style={styles.icon} name={iconName} size={24} color={iconColor} />
+            <TextInput style={[styles.input, style]}
+                    placeholder={placeholder}
                     placeholderTextColor="#aaaaaa"
-                    secureTextEntry={prop.secureText}
+                    secureTextEntry={secureText}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
-                    onChange={prop.onChange}/>
+                    onChange={onChange}
+                    onChangeText={onChangeText}/>
         </View>
     )
 }

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import LoginScreenStyles from '../../constants/LoginScreenStyles';
+import { DefaultTheme } from '../../config/theme/DefaultTheme';
 
 export default StyleSheet.create({
     container: {
@@ -38,8 +38,8 @@ export default StyleSheet.create({
       borderRadius: 15
   },
   textStyle: {
-      color: LoginScreenStyles.FontColor,
-      fontFamily: LoginScreenStyles.FontFamily
+      color: DefaultTheme.FontColor,
+      fontFamily: DefaultTheme.FontFamily
   },
   loginTitle: {
       flex: 1, 

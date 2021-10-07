@@ -1,15 +1,27 @@
-import React  from "react";
+import React, { useState }  from "react";
 import { Text, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import TextInputWithImage from "../../component/input/TextInputWithImage";
-import IconNames from "../../constants/IconNames";
-import LoginScreenStyles from "../../constants/LoginScreenStyles";
-import Strings from "../../localization/Strings";
+import { DefaultTheme } from "../../config/theme/DefaultTheme";
 import styles from './LoginScreen.styles';
-import LoginViewModel from "./LoginViewModel";
+import translate from 'i18n-js';
+import TranslationKeys from "../../constants/localization/TranslationKeys";
 
 export default function LoginScreen() {
-    const loginViewModel = new LoginViewModel();
+    const [username, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+
+    const login = () =>  {
+        // todo
+    }
+
+    const forgotPassword = () => {
+        // todo
+    }
+
+    const signUp = () => {
+
+    }
 
     return (
         <View style={styles.container}>
@@ -20,24 +32,25 @@ export default function LoginScreen() {
                 
                 <View style={styles.form}>
                     <View style={styles.formHeader} >
-                        <Text style={[styles.loginTitle, styles.textStyle]}>{Strings.Login}</Text>           
-                        <Text style={[styles.signUpText, styles.textStyle]} onPress={loginViewModel.signUp}>{Strings.SignUp}</Text>
+                        <Text style={[styles.loginTitle, styles.textStyle]}>{translate.t(TranslationKeys.Login)}</Text>           
+                        <Text style={[styles.signUpText, styles.textStyle]} onPress={signUp}>{translate.t(TranslationKeys.SignUp)}</Text>
                     </View>
-                    <TextInputWithImage placeholder={Strings.UserName} iconName={IconNames.Person}
-                        iconColor={LoginScreenStyles.IconColor} secureText={false}
+                    <TextInputWithImage placeholder={translate.t(TranslationKeys.UserName)} iconName='person'
+                        iconColor={DefaultTheme.IconColor} secureText={false}
                         style={styles.textStyle}
-                        onChange={loginViewModel.userNameChange}/>
+                        onChangeText={(input) => setUserName(input)}/>
 
-                    <TextInputWithImage placeholder={Strings.Password} iconName={IconNames.IosKey} 
-                        iconColor={LoginScreenStyles.IconColor} secureText={true}
+                    <TextInputWithImage placeholder={translate.t(TranslationKeys.Password)} iconName='ios-key' 
+                        iconColor={DefaultTheme.IconColor} secureText={true}
                         style={styles.textStyle}
-                        onChange={loginViewModel.passwordChange}/>
+                        onChangeText={(input) => setPassword(input)}/>
 
-                    <Text style={[styles.forgotPasswordText, styles.textStyle]} onPress={loginViewModel.forgotPassword}>{Strings.ForgotPassword}</Text>
+                    <Text style={[styles.forgotPasswordText, styles.textStyle]} 
+                        onPress={forgotPassword}>{translate.t(TranslationKeys.ForgotPassword)}</Text>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={loginViewModel.login}>
-                        <Text style={[styles.textStyle, styles.buttonTitle]}>{Strings.Login}</Text>
+                        onPress={login}>
+                        <Text style={[styles.textStyle, styles.buttonTitle]}>{translate.t(TranslationKeys.Login)}</Text>
                     </TouchableOpacity>
                 </View>
             </KeyboardAwareScrollView>
